@@ -13,14 +13,14 @@ def profile(request):
     """
     profile = get_object_or_404(UserProfile, user=request.user)
 
-    if request.method == "POST":
+    if request.method == 'POST':
         # create a instance of profile that we received above
-        form = UserProfileForm(instance=profile)
+        form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
 
-    form = UserProfileForm(request.POST, instance=profile)  # Get current users info
+    form = UserProfileForm(instance=profile)  # Get current users info
     orders = profile.orders.all()
 
     template = 'profiles/profile.html'
